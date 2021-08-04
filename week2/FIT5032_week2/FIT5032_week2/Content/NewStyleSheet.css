@@ -1,0 +1,29 @@
+﻿
+.preview{
+    width: 300px;
+    background-color: #FACB00;
+}
+
+.previewsecondLevel {
+    font-family: serif;
+    color: blue;
+    font-size: 30px
+}
+
+.preview2 {
+    width: 500px;
+    background-color: #48B588;
+    font-family: "Microsoft Yahei";
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.preview2secondLevel {
+    font-size: 40px;
+}
+
+p {
+    font-size: 30px;
+    color: white;
+}
+
