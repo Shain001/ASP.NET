@@ -1,0 +1,29 @@
+﻿body {
+}
+
+.home{
+    margin:0;
+}
+
+.pic {
+    height:600px;
+    background-image: url("https://images.pexels.com/photos/713297/pexels-photo-713297.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260");
+    background-size:100% 100%;
+    font-family:cursive;
+    font-size:xx-large;
+    font-weight:400;
+    color:white;
+    padding-left:10px;
+    padding-top:400px;
+}
+.companyInfo{
+    padding-top:50px;
+    align-content:center;
+}
+#title1 {
+    font-size: xx-large;
+    font-weight: 400
+}
+#info{
+    font-size:large
+}
