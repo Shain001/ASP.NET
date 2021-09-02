@@ -1,0 +1,28 @@
+﻿@model FIT5032_MyJS.Models.DatePicker
+@{
+    ViewBag.Title = "Date";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Date</h2>
+
+@using (Html.BeginForm())
+{
+    <br />
+    @Html.EditorFor(model => model.dateTime, new { htmlAttributes = new { @class = "datePicker" } })
+}
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+@section scripts{
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".datePicker").datepicker({
+                dateFormat: "yy-mm-dd",
+                defaultDate: new Date("2021-August-20")
+            });
+        })
+    </script>
+}
