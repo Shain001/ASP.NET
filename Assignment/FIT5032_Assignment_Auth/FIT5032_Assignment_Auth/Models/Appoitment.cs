@@ -2,6 +2,7 @@ namespace FIT5032_Assignment_Auth.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -12,6 +13,7 @@ namespace FIT5032_Assignment_Auth.Models
         public int Id { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayName("Appointment Date")]
         public DateTime AppDate { get; set; }
 
         [Required]
