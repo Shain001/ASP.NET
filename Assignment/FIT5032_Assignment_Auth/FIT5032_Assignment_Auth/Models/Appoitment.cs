@@ -25,11 +25,17 @@ namespace FIT5032_Assignment_Auth.Models
         public string State { get; set; }
 
         [Required]
-        public string Type { get; set; }
+        public int TypeId { get; set; }
+
+        [ForeignKey("TypeId")]
+        public virtual Type Type { get; set; }
 
         public int? Rate { get; set; }
 
         [StringLength(128)]
+
+        [ForeignKey("User")]
         public string Uid { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

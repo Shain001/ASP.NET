@@ -106,3 +106,5 @@ E:\ShianGit\ASP.NET\Assignment\FIT5032_Assignment_Auth\FIT5032_Assignment_Auth\o
 E:\ShianGit\ASP.NET\Assignment\FIT5032_Assignment_Auth\FIT5032_Assignment_Auth\obj\Debug\FIT5032_Assignment_Auth.dll
 E:\ShianGit\ASP.NET\Assignment\FIT5032_Assignment_Auth\FIT5032_Assignment_Auth\obj\Debug\FIT5032_Assignment_Auth.pdb
 E:\ShianGit\ASP.NET\Assignment\FIT5032_Assignment_Auth\FIT5032_Assignment_Auth\obj\Debug\FIT5032_Assignment_Auth.csproj.AssemblyReference.cache
+E:\ShianGit\ASP.NET\Assignment\FIT5032_Assignment_Auth\FIT5032_Assignment_Auth\obj\Debug\FIT5032_Assignment_Auth.Migrations.o.resources
+E:\ShianGit\ASP.NET\Assignment\FIT5032_Assignment_Auth\FIT5032_Assignment_Auth\obj\Debug\FIT5032_Assignment_Auth.csproj.GenerateResource.cache

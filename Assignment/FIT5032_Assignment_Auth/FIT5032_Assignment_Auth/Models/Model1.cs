@@ -13,6 +13,7 @@ namespace FIT5032_Assignment_Auth.Models
         }
 
         public virtual DbSet<Appoitment> Appoitment { get; set; }
+        public virtual DbSet<Type> Type { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
