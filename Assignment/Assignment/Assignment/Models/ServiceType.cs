@@ -16,7 +16,7 @@ namespace Assignment.Models
         }
 
         [Key]
-        public string TypeId { get; set; }
+        public int TypeId { get; set; }
 
         public string TypeName { get; set; }
 

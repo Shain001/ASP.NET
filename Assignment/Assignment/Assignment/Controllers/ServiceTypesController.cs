@@ -21,7 +21,7 @@ namespace Assignment.Controllers
         }
 
         // GET: ServiceTypes/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -59,7 +59,7 @@ namespace Assignment.Controllers
         }
 
         // GET: ServiceTypes/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -90,7 +90,7 @@ namespace Assignment.Controllers
         }
 
         // GET: ServiceTypes/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -107,7 +107,7 @@ namespace Assignment.Controllers
         // POST: ServiceTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             ServiceType serviceType = db.ServiceType.Find(id);
             db.ServiceType.Remove(serviceType);

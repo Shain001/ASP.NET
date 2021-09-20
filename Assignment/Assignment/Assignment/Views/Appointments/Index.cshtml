@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Assignment.Models.Appointment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Appointments";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,9 +22,6 @@
             @Html.DisplayNameFor(model => model.AppAddress)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Rate)
         </th>
         <th></th>
@@ -41,9 +38,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.AppAddress)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UID)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.Rate)
         </td>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Assignment.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Assignment.Controllers
 {
@@ -17,12 +18,14 @@ namespace Assignment.Controllers
         // GET: Appointments
         public ActionResult Index()
         {
-            var appointment = db.Appointment.Include(a => a.ServiceType);
+            var userId = User.Identity.GetUserId();
+            //var appointments = db.Appoitment.Where(s => s.Uid == userId).ToList();
+            var appointment = db.Appointment.Where(s => s.UID == userId).Include(a => a.ServiceType);
             return View(appointment.ToList());
         }
 
         // GET: Appointments/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -50,6 +53,11 @@ namespace Assignment.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AppId,AppDate,AppAddress,UID,TypeId,Rate")] Appointment appointment)
         {
+            appointment.UID = User.Identity.GetUserId();
+
+            ModelState.Clear();
+            TryValidateModel(appointment);
+
             if (ModelState.IsValid)
             {
                 db.Appointment.Add(appointment);
@@ -62,7 +70,7 @@ namespace Assignment.Controllers
         }
 
         // GET: Appointments/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -95,7 +103,7 @@ namespace Assignment.Controllers
         }
 
         // GET: Appointments/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -112,7 +120,7 @@ namespace Assignment.Controllers
         // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             Appointment appointment = db.Appointment.Find(id);
             db.Appointment.Remove(appointment);
