@@ -105,3 +105,7 @@ E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj.CopyComplete
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.dll
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.pdb
+E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\SendGrid.dll
+E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\StarkbankEcdsa.dll
+E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\SendGrid.pdb
+E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\SendGrid.xml
