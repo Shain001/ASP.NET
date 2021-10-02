@@ -13,6 +13,7 @@ namespace Assignment.Models
 
         public int AppId { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime AppDate { get; set; }
 
         [Required]
