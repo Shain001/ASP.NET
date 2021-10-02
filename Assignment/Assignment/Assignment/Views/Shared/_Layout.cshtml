@@ -34,6 +34,10 @@
                     {
                         <li>@Html.ActionLink("Email", "Send_Email", "Home")</li>
                     }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Overview", "Index", "AdminOverview")</li>
+                    }
                     @if (User.IsInRole("User"))
                     {
                         <li>@Html.ActionLink("My Appointment", "Index", "Appointments")</li>

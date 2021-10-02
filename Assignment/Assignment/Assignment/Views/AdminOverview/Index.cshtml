@@ -1,0 +1,12 @@
+﻿@model Assignment.Models.AdminOverviewViweModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    var data = ViewBag.Message;
+}
+
+<h2>AdminOverview</h2>
+
+<p>Average Rating: @data</p>
