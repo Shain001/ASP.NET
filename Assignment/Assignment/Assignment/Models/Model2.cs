@@ -15,6 +15,8 @@ namespace Assignment.Models
         public virtual DbSet<Appointment> Appointment { get; set; }
         public virtual DbSet<ServiceType> ServiceType { get; set; }
 
+        public virtual DbSet<Events> Events { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

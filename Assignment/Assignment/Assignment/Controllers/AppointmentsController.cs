@@ -51,9 +51,23 @@ namespace Assignment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "AppId,AppDate,AppAddress,UID,TypeId,Rate")] Appointment appointment)
         {
             appointment.UID = User.Identity.GetUserId();
+
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(HttpUtility.HtmlEncode(appointment.AppAddress));
+
+            sb.Replace("<b>", "");
+            sb.Replace("</b>", "");
+            sb.Replace("<script>", "");
+            sb.Replace("</script>", "");
+
+            appointment.AppAddress = sb.ToString();
+
+            string ad = HttpUtility.HtmlEncode(appointment.AppAddress);
+            appointment.AppAddress = ad;
 
             ModelState.Clear();
             TryValidateModel(appointment);
@@ -90,8 +104,22 @@ namespace Assignment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "AppId,AppDate,AppAddress,UID,TypeId,Rate")] Appointment appointment)
         {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append(HttpUtility.HtmlEncode(appointment.AppAddress));
+
+            sb.Replace("<b>", "");
+            sb.Replace("</b>", "");
+            sb.Replace("<script>", "");
+            sb.Replace("</script>", "");
+
+            appointment.AppAddress = sb.ToString();
+
+            string ad = HttpUtility.HtmlEncode(appointment.AppAddress);
+            appointment.AppAddress = ad;
+
             if (ModelState.IsValid)
             {
                 db.Entry(appointment).State = EntityState.Modified;
@@ -136,5 +164,7 @@ namespace Assignment.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }
