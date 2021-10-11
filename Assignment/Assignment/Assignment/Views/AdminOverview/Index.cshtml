@@ -1,6 +1,6 @@
 ﻿
 @using Assignment.Models
-@model List<Group<string,string>>
+@model List<Group<string, string>>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -23,14 +23,15 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <th >@item.Key</th>
-    <th >@item.Values</th>
-</tr>
-        
+        <tr>
+            <th>@item.Key</th>
+            <th>@item.Values</th>
+        </tr>
+
     }
 
 </table>
+
 
 
 

@@ -24,7 +24,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ToEmail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ToEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.ToEmail, new { @Value="zsyycg@gmail.com", @readonly=true })
                 @Html.ValidationMessageFor(model => model.ToEmail, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Subject, Assignment.Utils.SubjectList.SubjectItems(), "Select Subject", new {  @class = "form-control"  })
                 @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
             </div>
         </div>
