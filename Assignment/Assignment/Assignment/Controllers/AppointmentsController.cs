@@ -72,15 +72,33 @@ namespace Assignment.Controllers
             ModelState.Clear();
             TryValidateModel(appointment);
 
-            if (ModelState.IsValid)
+            // validation part
+
+            var app = db.Appointment.Where(s => s.AppDate == appointment.AppDate).Where(s=>s.AppAddress == appointment.AppAddress).FirstOrDefault();
+
+            if (app == null)
             {
-                db.Appointment.Add(appointment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Appointment.Add(appointment);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+                return View(appointment);
+
+            }
+            else
+            {
+                ModelState.AddModelError(nameof(Appointment.AppAddress), "You have already make an Appointment for same address and time");
+                ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+                return View(appointment);
             }
 
-            ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
-            return View(appointment);
+            
+
+            
         }
 
         // GET: Appointments/Edit/5
@@ -165,6 +183,47 @@ namespace Assignment.Controllers
             base.Dispose(disposing);
         }
 
-        
+
+        public ActionResult Rate(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Appointment appointment = db.Appointment.Find(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+            return View(appointment);
+        }
+
+        // POST: Appointments/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult Rate([Bind(Include = "AppId,Rate")] Appointment appointment)
+        {
+            if (appointment.AppId != null)
+            {
+                var app = db.Appointment.Where(s => s.AppId == appointment.AppId).FirstOrDefault();
+                app.Rate = appointment.Rate;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(appointment).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+            return View(appointment);
+        }
     }
 }

@@ -30,10 +30,7 @@
                     {
                         <li>@Html.ActionLink("Services", "Index", "ServiceTypes")</li>
                     }
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Email", "Send_Email", "Home")</li>
-                    }
+                   
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Overview", "Index", "AdminOverview")</li>
