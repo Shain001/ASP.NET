@@ -30,7 +30,7 @@
                     {
                         <li>@Html.ActionLink("Services", "Index", "ServiceTypes")</li>
                     }
-                   
+
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Overview", "Index", "AdminOverview")</li>
@@ -39,6 +39,11 @@
                     {
                         <li>@Html.ActionLink("My Appointment", "Index", "Appointments")</li>
                     }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Calendar", "Index", "AppCalendar")</li>
+                    }
+
 
                 </ul>
                 @Html.Partial("_LoginPartial")

@@ -12,7 +12,7 @@ namespace Assignment.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServiceType()
         {
-            Appointment = new HashSet<Appointment>();
+            //Appointment = new HashSet<Appointment>();
         }
 
         [Key]
@@ -20,7 +20,7 @@ namespace Assignment.Models
 
         public string TypeName { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Appointment> Appointment { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<Appointment> Appointment { get; set; }
     }
 }

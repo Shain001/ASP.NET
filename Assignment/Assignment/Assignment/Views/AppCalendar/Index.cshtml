@@ -1,0 +1,265 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Calendar Page</h2>
+
+<div id="calender"></div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                @*<button id="btnDelete" class="btn btn-default btn-sm pull-right">
+                    <span class="glyphicon glyphicon-remove"></span> Remove
+                </button>*@
+                @*<button id="btnEdit" class="btn btn-default btn-sm pull-right" style="margin-right:5px;">
+                    <span class="glyphicon glyphicon-pencil"></span> Edit
+                </button>*@
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">New Appointment</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <input type="hidden" id="hdEventID" value="0" />
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="appAddress" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <div class="input-group date" id="dtp1">
+                            <input type="text" id="appDate" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <label>Service Type</label>
+                        <select id="appServiceType" class="form-control">
+                            <option value="1">House Cleaning</option>
+                            <option value="2">Garden Cleaning</option>
+                            <option value="3">Regular</option>
+                            
+                        </select>
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            var selectedEvent = null;
+            FetchEventAndRenderCalendar();
+
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/AppCalendar/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.AppId,
+                                title: v.ServiceType.TypeName,
+                                start: moment(v.AppDate),
+                                description: v.AppAddress
+                            });
+                        })
+
+                        GenerateCalender(events);
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+            }
+
+            //$.ajax({
+            //    type: "GET",
+            //    url: "/AppCalendar/GetEvents",
+            //    success: function (data) {
+            //        $.each(data, function (i, v) {
+            //            events.push({
+            //                eventID: v.AppId,
+            //                title: v.ServiceType.TypeName,
+            //                start: moment(v.AppDate),
+            //                description: v.AppAddress,
+                            
+            //                //TypeId: v.TypeId,
+            //                //ServiceType: v.ServiceType,
+            //                //Rate:v.Rate
+
+            //            });
+            //        })
+
+            //        GenerateCalender(events);
+            //    },
+            //    error: function (error) {
+            //        alert('test');
+            //    }
+            //})
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 400,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Appointment Date:</b>' + calEvent.start.format("YYYY/MM/DD HH:mm a")));
+
+                        $description.append($('<p/>').html('<b>Appintment Address:</b>' + calEvent.description));
+                        $description.append($('<p/>').html('<b>Appintment Type:</b>' + calEvent.title));
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start
+                        };
+                        openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    },
+                    editable: true,
+                    eventDrop: function (event) {
+                        var data = {
+                            AppId: event.eventID,
+                            TypeId: '#appServiceType',
+                            Start: event.start.format('YYYY/MM/DD HH:mm A'),
+                            AppAddress: event.description
+                            
+                        };
+                        SaveEvent(data);
+                    }
+
+                })
+            }
+
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+
+            $('#dtp1,#dtp2').datetimepicker({
+                format: 'YYYY/MM/DD HH:mm A'
+            });
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubject').val(selectedEvent.title);
+                    $('#txtStart').val(selectedEvent.start.format('YYYY/MM/DD HH:mm A'));
+      
+                    $('#appAdress').val(selectedEvent.description);
+                    $('#appServiceType').val(selectedEvent.title);
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal();
+            }
+
+            $('#btnSave').click(function () {
+                //Validation/
+                if ($('#appAddress').val().trim() == "") {
+                    alert('Subject required');
+                    return;
+                }
+                if ($('#appDate').val().trim() == "") {
+                    alert('date required');
+                    return;
+                }
+                
+                else {
+                    var startDate = moment($('#txtStart').val(), "YYYY/MM/DD HH:mm A").toDate();
+                    //var endDate = moment($('#txtEnd').val(), "YYYY/MM/DD HH:mm A").toDate();
+                    //if (startDate > endDate) {
+                    //    alert('Invalid end date');
+                    //    return;
+                    //}
+                }
+
+                var data = {
+                    AppId: $('#hdEventID').val(),
+                    /*AppId: selectedEvent.eventID,*/
+                    AppAddress: $('#appAddress').val().trim(),
+                    AppDate: $('#appDate').val().trim(),
+                    
+                    TypeId: $('#appServiceType').val(),
+                    
+                }
+                SaveEvent(data);
+                // call function for submit data to the server
+            })
+
+
+            function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '/AppCalendar/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }
+
+        })
+    </script>
+}
