@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AppDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AppDate, new { htmlAttributes = new { @class = "datePicker" } })
+                @Html.EditorFor(model => model.AppDate, new { htmlAttributes = new { @class = "form-control", @id = "datetimePicker" } })
                 @Html.ValidationMessageFor(model => model.AppDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,26 +56,35 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
 
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+        <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+        <script>
+            $(function () {
+                $("#datetimePicker").datetimepicker({
+                    dateFormat: "yyyy-mm-dd hh:mm a"
+                });
+            })
+        </script>
+    }*@
+
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
-        $(function () {
-            $(".datePicker").datepicker({
-                dateFormat: "yy-mm-dd",
-                defaultDate: new Date("2021-August-20")
-            });
-        })
+
+        $('#datetimePicker').datetimepicker({
+            format: 'YYYY/MM/DD HH:mm A'
+        });
     </script>
-}
-
-<style>
-    .datePicker {
-        
     }
-</style>
-
-
+}

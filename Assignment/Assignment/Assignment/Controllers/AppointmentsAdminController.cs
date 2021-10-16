@@ -7,18 +7,35 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Assignment.Models;
+using Assignment.Utils;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Assignment.Controllers
 {
     public class AppointmentsAdminController : Controller
     {
         private Model2 db = new Model2();
-
+        private List<SelectListItem> useremails; 
         // GET: AppointmentsAdmin
         public ActionResult Index()
         {
-            var appointment = db.Appointment.Include(a => a.ServiceType);
-            return View(appointment.ToList());
+            var appointment = db.Appointment.Include(a => a.ServiceType).ToList();
+
+            var context = new IdentityDbContext();
+            
+            //return View(appointment);
+
+            List<AppointmentAdmin> apps = new List<AppointmentAdmin>();
+            foreach (var a in appointment)
+            {
+                var user = context.Users.Where(s => s.Id == a.UID).FirstOrDefault();
+                var email = user.Email;
+   
+                a.UID = email;
+            }
+            
+            return View(appointment);
+
         }
 
         // GET: AppointmentsAdmin/Details/5
@@ -39,6 +56,7 @@ namespace Assignment.Controllers
         // GET: AppointmentsAdmin/Create
         public ActionResult Create()
         {
+            ViewBag.UEmails = useremails;
             ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName");
             return View();
         }
@@ -82,16 +100,25 @@ namespace Assignment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AppId,AppDate,AppAddress,UID,TypeId,Rate")] Appointment appointment)
+        public ActionResult Edit([Bind(Include = "AppId,AppDate,AppAddress,TypeId")] Appointment appointment)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(appointment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
-            return View(appointment);
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(appointment).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+
+            var app = db.Appointment.Where(s => s.AppId == appointment.AppId).FirstOrDefault();
+            app.AppDate = appointment.AppDate;
+            app.AppAddress = appointment.AppAddress;
+            app.TypeId = appointment.TypeId;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+
+            //ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+            //return View(appointment);
         }
 
         // GET: AppointmentsAdmin/Delete/5

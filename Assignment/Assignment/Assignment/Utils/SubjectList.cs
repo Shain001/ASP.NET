@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Assignment.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,8 @@ namespace Assignment.Utils
 {
     public static class SubjectList
     {
+
+        public static List<SelectListItem> Emails { get; set; }
         public static IEnumerable<SelectListItem> SubjectItems()
         {
             var itmes = new List<SelectListItem>
@@ -18,6 +22,35 @@ namespace Assignment.Utils
 
             };
             return itmes;
+        }
+
+        public static IEnumerable<SelectListItem> SubjectItemsAdmin()
+        {
+            var itmes = new List<SelectListItem>
+            {
+                new SelectListItem() {Text="Notification", Value = "Notification"},
+                new SelectListItem() {Text="About Appointment", Value="About Appointment"},
+                new SelectListItem() {Text="General", Value="General"}
+
+            };
+            return itmes;
+        }
+
+        public static IEnumerable<SelectListItem> GetUserEmails()
+        {
+            var context = new IdentityDbContext();
+
+            Emails = new List<SelectListItem>();
+            var users = context.Users.ToList();
+
+            foreach(var u in users)
+            {
+                Emails.Add(new SelectListItem() { Value = u.Id, Text = u.Email });
+            }
+
+
+
+            return Emails;
         }
     }
 }

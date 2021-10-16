@@ -32,8 +32,9 @@ namespace Assignment.Controllers
             //    temp.Key = db.ServiceType.Where(s => s.TypeId.ToString() == temp.Key).Select(s => s.TypeName).FirstOrDefault();
             //}
 
-            
-            
+            BarChart();
+
+
             return View(avg.ToList());
         }
 
@@ -84,6 +85,41 @@ namespace Assignment.Controllers
             }
 
             return new JsonResult { Data = new { status = status } };
+        }
+
+        public ActionResult BarChart()
+        {
+            var avg = db.Appointment.GroupBy(i => i.TypeId)
+                .Select(g => new Group<string, string>
+                {
+                    //Key = 
+                    //g.Key.ToString(),
+                    Key = db.ServiceType.Where(s => s.TypeId == g.Key).Select(s => s.TypeName).FirstOrDefault(),
+                    Values = g.Average(i => i.Rate).ToString()
+                });
+
+            var rates = new List<string>();
+            var types = new List<string>();
+
+            foreach (var a in avg)
+            {
+                types.Add(a.Key);
+                rates.Add(a.Values);
+            }
+
+            var st = db.ServiceType.ToList();
+
+            foreach(var s in st){
+                if (!types.Contains(s.TypeName))
+                {
+                    types.Add(s.TypeName);
+                    rates.Add("0");
+                }
+            }
+
+            ViewBag.Rates = rates.ToList();
+            ViewBag.Types = types.ToList();
+            return View();
         }
     }
 }

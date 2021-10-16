@@ -1,0 +1,90 @@
+﻿@model Assignment.Models.AdminEmail
+
+
+@{
+    ViewBag.Title = "Admin_send_email";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin_send_email</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    if (@ViewBag.Result != null)
+    {
+        <div class="alert alert-info">@ViewBag.Result</div>
+    }
+
+    <div class="form-horizontal">
+        <h4>SendEmailViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ToEmail, Assignment.Utils.SubjectList.GetUserEmails(), "Select Email", new { @class = "form-control chosen", multiple="multiple" })
+
+                @*@Html.ListBoxFor(model => model.ToEmail, new MultiSelectList(ViewBag.Emails, "Value", "Text"), new { @class = "form-control"})*@
+
+                @*@Html.DropDownListFor(model => model.ToEmail, new MultiSelectList(Assignment.Utils.SubjectList.GetUserEmails(), "Value", "Text", @Model.ToEmail),
+        new
+        {
+
+            @class = "form-control multiselect-dropdown",
+            multiple = "true",
+            data_placeholder = "Select Users"
+        })*@
+
+
+                @Html.ValidationMessageFor(model => model.ToEmail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Subject, Assignment.Utils.SubjectList.SubjectItemsAdmin(), "Select Subject", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Contents, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Contents, new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(model => model.Contents, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Send" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Home", "Index")
+</div>
+
+@section Styles{
+    @Styles.Render("~/Content/chosen")
+    }
+
+@section Scripts {
+    @Scripts.Render("~/bundles/chosen");
+
+    <script type="text/javascript">
+        
+        $(function () {
+
+            $(".chosen").chosen()
+
+        })
+
+    </script>
+}

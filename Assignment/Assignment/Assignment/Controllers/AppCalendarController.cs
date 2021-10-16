@@ -15,6 +15,15 @@ namespace Assignment.Controllers
         // GET: AppCalendar
         public ActionResult Index()
         {
+            var types = db.ServiceType.ToList();
+            //List<SelectListItem> selects = new List<SelectListItem>();
+            //foreach (var t in types)
+            //{
+            //    selects.Add(new SelectListItem() { Value=t.TypeId.ToString(), Text=t.TypeName});
+
+            //}
+
+            ViewBag.Selections = types;
             return View();
         }
 
@@ -59,6 +68,11 @@ namespace Assignment.Controllers
             }
             else
             {
+                var existApp = db.Appointment.Where(a => DbFunctions.TruncateTime(a.AppDate) == e.AppDate.Date && a.AppAddress == e.AppAddress).FirstOrDefault();
+                if (existApp != null)
+                {
+                    return new JsonResult { Data = new { status = status } };
+                }
                 var userId = User.Identity.GetUserId();
                 e.UID = userId;
                 e.ServiceType = ser;

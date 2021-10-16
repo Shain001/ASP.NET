@@ -25,6 +25,15 @@ namespace Assignment
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // for chosen
+            bundles.Add(new ScriptBundle("~/bundles/chosen").Include(
+                "~/Scripts/chosen.jquery*"
+                ));
+
+            bundles.Add(new StyleBundle("~/Content/chosen").Include(
+                      "~/Content/bootstrap-chosen.css"));
+
         }
     }
 }

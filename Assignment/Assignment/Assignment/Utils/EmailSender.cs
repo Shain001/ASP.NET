@@ -11,7 +11,7 @@ namespace Assignment.Utils
     public class EmailSender
     {
         // Please use your API KEY here.
-        private const String API_KEY = "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";
+        private const String API_KEY = "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";
 
         public void Send(String toEmail, String subject, String contents)
         {

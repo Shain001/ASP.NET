@@ -17,6 +17,9 @@ namespace Assignment.Models
 
         public virtual DbSet<Events> Events { get; set; }
 
+        
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }

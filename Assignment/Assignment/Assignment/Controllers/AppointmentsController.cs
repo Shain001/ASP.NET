@@ -74,7 +74,7 @@ namespace Assignment.Controllers
 
             // validation part
 
-            var app = db.Appointment.Where(s => s.AppDate == appointment.AppDate).Where(s=>s.AppAddress == appointment.AppAddress).FirstOrDefault();
+            var app = db.Appointment.Where(s => DbFunctions.TruncateTime(s.AppDate) == appointment.AppDate.Date).Where(s=>s.AppAddress == appointment.AppAddress).FirstOrDefault();
 
             if (app == null)
             {
