@@ -31,6 +31,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.AppAddress, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.AppAddress, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
@@ -60,7 +61,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" id="savebtn" />
             </div>
         </div>
     </div>
@@ -85,8 +86,18 @@
     <script>
 
         $('#datetimePicker').datetimepicker({
-            format: 'YYYY/MM/DD HH:mm A'
+            format: 'YYYY/MM/DD HH:mm A',
+            minDate: new Date()
         });
+
+        //$('#savebtn').click(function () {
+        //    if ($('#datetimePicker').selectedDate == null) {
+        //        alert('address cannot be null')
+        //        return;
+        //    }
+        //})
+
+        
     </script>
 }
 }

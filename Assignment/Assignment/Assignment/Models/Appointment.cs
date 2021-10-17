@@ -13,7 +13,7 @@ namespace Assignment.Models
 
         public int AppId { get; set; }
 
-        
+        [Required]
         public DateTime AppDate { get; set; }
 
         [Required]

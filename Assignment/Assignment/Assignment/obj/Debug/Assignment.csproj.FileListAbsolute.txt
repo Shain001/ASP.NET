@@ -109,3 +109,4 @@ E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj.CopyComplete
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.dll
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.pdb
+E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj.AssemblyReference.cache

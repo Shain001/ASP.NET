@@ -308,6 +308,7 @@
     <Content Include="Views\Appointments\Rate.cshtml" />
     <Content Include="Views\AppCalendar\Index.cshtml" />
     <Content Include="Views\Home\Admin_send_email.cshtml" />
+    <Content Include="Views\AppCalendar\AdminIndex.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

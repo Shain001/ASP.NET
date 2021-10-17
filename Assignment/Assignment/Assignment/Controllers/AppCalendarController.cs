@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Assignment.Controllers
 {
@@ -27,16 +28,39 @@ namespace Assignment.Controllers
             return View();
         }
 
+        public ActionResult AdminIndex()
+        {
+            var types = db.ServiceType.ToList();
+            var context = new IdentityDbContext();
+            var users = context.Users.ToList();
+            ViewBag.Us = users;
+            //List<SelectListItem> selects = new List<SelectListItem>();
+            //foreach (var t in types)
+            //{
+            //    selects.Add(new SelectListItem() { Value=t.TypeId.ToString(), Text=t.TypeName});
+
+            //}
+
+            ViewBag.Selections = types;
+            return View();
+        }
+
         [HttpGet]
         public JsonResult GetEvents()
         {
 
             var userId = User.Identity.GetUserId();
             var events = db.Appointment.Where(a => a.UID == userId).Include(a => a.ServiceType).ToList();
-
+            var context = new IdentityDbContext();
             if (User.IsInRole("Admin"))
             {
                 events = db.Appointment.Include(a => a.ServiceType).ToList();
+                foreach (var e in events)
+                {
+                    var id = e.UID;
+                    var user = context.Users.Where(s => s.Id == id).FirstOrDefault();
+                    e.UID = user.Email;
+                }
             }
 
             //var events = db.Appointment.ToList();
@@ -73,10 +97,22 @@ namespace Assignment.Controllers
                 {
                     return new JsonResult { Data = new { status = status } };
                 }
-                var userId = User.Identity.GetUserId();
-                e.UID = userId;
-                e.ServiceType = ser;
-                db.Appointment.Add(e);
+                
+                if (User.IsInRole("Admin"))
+                {
+                    var userId = e.UID;
+                    e.UID = userId;
+                    e.ServiceType = ser;
+                    db.Appointment.Add(e);
+                }
+                else
+                {
+                    var userId = User.Identity.GetUserId();
+                    e.UID = userId;
+                    e.ServiceType = ser;
+                    db.Appointment.Add(e);
+                }
+                
             }
             db.SaveChanges();
             status = true;

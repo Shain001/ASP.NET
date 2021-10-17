@@ -39,9 +39,13 @@
                     {
                         <li>@Html.ActionLink("My Appointment", "Index", "Appointments")</li>
                     }
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.IsInRole("User"))
                     {
                         <li>@Html.ActionLink("Calendar", "Index", "AppCalendar")</li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Calendar", "AdminIndex", "AppCalendar")</li>
                     }
 
 

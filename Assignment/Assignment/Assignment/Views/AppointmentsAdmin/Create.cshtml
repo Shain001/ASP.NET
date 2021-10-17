@@ -36,7 +36,7 @@
             @Html.LabelFor(model => model.UID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.UID, Assignment.Utils.SubjectList.GetUserEmails(), "Select User", new { @class = "form-control" })
-                @*@Html.ValidationMessageFor(model => model.UID, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(model => model.UID, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -58,7 +58,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" id="savebtn"/>
             </div>
         </div>
     </div>
@@ -83,8 +83,15 @@
     <script>
 
         $('#datetimePicker').datetimepicker({
-            format: 'YYYY/MM/DD HH:mm A'
+            format: 'YYYY/MM/DD HH:mm A',
+            minDate: new Date()
         });
+        //$('#savebtn').click(function () {
+        //    if ($('#datetimePicker').selectedDate == null) {
+        //        alert('Date Cannot be Null')
+        //        return;
+        //    }
+        //})
     </script>
 }
 }

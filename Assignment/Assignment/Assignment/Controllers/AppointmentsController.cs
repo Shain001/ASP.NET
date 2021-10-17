@@ -80,6 +80,12 @@ namespace Assignment.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (appointment.AppDate.ToString() == "0001/1/1 0:00:00")
+                    {
+                        ModelState.AddModelError(nameof(Appointment.AppDate), "Date Cannot be Null");
+                        ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+                        return View(appointment);
+                    }
                     db.Appointment.Add(appointment);
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -125,6 +131,21 @@ namespace Assignment.Controllers
         [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "AppId,AppDate,AppAddress,UID,TypeId,Rate")] Appointment appointment)
         {
+
+            if (appointment.AppDate.ToString() == "0001/1/1 0:00:00")
+            {
+                ModelState.AddModelError(nameof(Appointment.AppDate), "Date Cannot be Null");
+                ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+                return View(appointment);
+            }
+
+            if (appointment.AppAddress == null)
+            {
+                ModelState.AddModelError(nameof(Appointment.AppAddress), "Address Cannot be Null");
+                ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+                return View(appointment);
+            }
+
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.Append(HttpUtility.HtmlEncode(appointment.AppAddress));
 
@@ -138,14 +159,18 @@ namespace Assignment.Controllers
             string ad = HttpUtility.HtmlEncode(appointment.AppAddress);
             appointment.AppAddress = ad;
 
-            if (ModelState.IsValid)
-            {
+            appointment.UID = User.Identity.GetUserId();
+
+            //if (ModelState.IsValid)
+            //{
                 db.Entry(appointment).State = EntityState.Modified;
+            
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
-            return View(appointment);
+            
+            return RedirectToAction("Index");
+            //}
+            //ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
+            //return View(appointment);
         }
 
         // GET: Appointments/Delete/5

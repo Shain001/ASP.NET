@@ -207,7 +207,8 @@
             })
 
             $('#dtp1,#dtp2').datetimepicker({
-                format: 'YYYY/MM/DD HH:mm A'
+                format: 'YYYY/MM/DD HH:mm A',
+                minDate: new Date()
             });
 
             function openAddEditForm() {
