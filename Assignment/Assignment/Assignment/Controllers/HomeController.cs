@@ -3,6 +3,7 @@ using Assignment.Utils;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -64,7 +65,7 @@ namespace Assignment.Controllers
 
                     foreach(var e in toEmail)
                     {
-                        es.Send(e, subject, contents);
+                        es.Send(e, subject, contents, null, null);
                     }
                     
 
@@ -98,17 +99,90 @@ namespace Assignment.Controllers
             return View(new AdminEmail());
         }
 
+        //[HttpPost]
+        //public ActionResult Admin_send_email(SendEmailViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            List<String> toEmail = model.ToEmail;
+        //            String subject = model.Subject;
+        //            String contents = model.Contents;
+
+        //            EmailSender es = new EmailSender();
+
+        //            foreach (var e in toEmail)
+        //            {
+        //                if (e == "-1")
+        //                {
+        //                    var context = new IdentityDbContext();
+        //                    var users = context.Users.ToList();
+        //                    foreach (var u in users)
+        //                    {
+        //                        es.Send(u.Email, subject, contents);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    es.Send(e, subject, contents);
+        //                }
+
+        //            }
+
+
+        //            ViewBag.Result = "Email has been send.";
+
+        //            ModelState.Clear();
+
+        //            return View(new AdminEmail());
+        //        }
+        //        catch
+        //        {
+        //            return View();
+        //        }
+        //    }
+
+        //    return View();
+        //}
+
+
         [HttpPost]
-        public ActionResult Admin_send_email(SendEmailViewModel model)
+        public ActionResult Admin_send_email(SendEmailViewModel model, HttpPostedFileBase postedFile)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    List<String> toEmail = model.ToEmail;
+                    // attachment
+                    ////var fileName = Path.GetFileName(postedFile.FileName);
+                    ////var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                    ////postedFile.SaveAs(path);
+                    
+                    string fileName;
+                    string file;
+                    if (postedFile != null)
+                    {
+                        MemoryStream target = new MemoryStream();
+                        postedFile.InputStream.CopyTo(target); // generates problem in this line
+                        byte[] data = target.ToArray();
+
+                        file = Convert.ToBase64String(data);
+
+                        fileName = postedFile.FileName;
+                    }
+                    else
+                    {
+                        file = null;
+                        fileName = null;
+                    }
+                    
+                    
+
+                    List<String> toEmail = (List<string>)model.ToEmail;
                     String subject = model.Subject;
                     String contents = model.Contents;
-
+                    
                     EmailSender es = new EmailSender();
 
                     foreach (var e in toEmail)
@@ -119,14 +193,14 @@ namespace Assignment.Controllers
                             var users = context.Users.ToList();
                             foreach (var u in users)
                             {
-                                es.Send(u.Email, subject, contents);
+                                es.Send(u.Email, subject, contents,file,fileName);
                             }
                         }
                         else
                         {
-                            es.Send(e, subject, contents);
+                            es.Send(e, subject, contents, file, fileName);
                         }
-                        
+
                     }
 
 

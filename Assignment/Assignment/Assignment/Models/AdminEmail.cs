@@ -19,5 +19,8 @@ namespace Assignment.Models
 
         [Required(ErrorMessage = "Please enter the contents")]
         public string Contents { get; set; }
+
+        // attachment
+        public HttpPostedFileBase Attatchment { get; set; }
     }
 }

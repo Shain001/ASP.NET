@@ -310,7 +310,9 @@
     <Content Include="Views\Home\Admin_send_email.cshtml" />
     <Content Include="Views\AppCalendar\AdminIndex.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Uploads\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
