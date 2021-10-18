@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ToEmail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ToEmail, Assignment.Utils.SubjectList.GetUserEmails(), "Select Email", new { @class = "form-control chosen", multiple="multiple" })
+                @Html.DropDownListFor(model => model.ToEmail, Assignment.Utils.SubjectList.GetUserEmails(), "", new { @class = "form-control chosen", multiple="multiple" })
 
                 @*@Html.ListBoxFor(model => model.ToEmail, new MultiSelectList(ViewBag.Emails, "Value", "Text"), new { @class = "form-control"})*@
 

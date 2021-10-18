@@ -41,12 +41,16 @@ namespace Assignment.Utils
             var context = new IdentityDbContext();
 
             Emails = new List<SelectListItem>();
+            Emails.Add(new SelectListItem() { Value = "-1", Text = "All User" });
+
             var users = context.Users.ToList();
 
             foreach(var u in users)
             {
-                Emails.Add(new SelectListItem() { Value = u.Id, Text = u.Email });
+                Emails.Add(new SelectListItem() { Value = u.Email, Text = u.Email });
             }
+
+            
 
 
 

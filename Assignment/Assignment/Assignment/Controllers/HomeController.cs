@@ -113,7 +113,20 @@ namespace Assignment.Controllers
 
                     foreach (var e in toEmail)
                     {
-                        es.Send(e, subject, contents);
+                        if (e == "-1")
+                        {
+                            var context = new IdentityDbContext();
+                            var users = context.Users.ToList();
+                            foreach (var u in users)
+                            {
+                                es.Send(u.Email, subject, contents);
+                            }
+                        }
+                        else
+                        {
+                            es.Send(e, subject, contents);
+                        }
+                        
                     }
 
 
