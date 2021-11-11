@@ -105,8 +105,8 @@ E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\Microsoft.Owin.Security
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\Microsoft.Owin.Security.OAuth.xml
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj.AssemblyReference.cache
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj.CoreCompileInputs.cache
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj.CopyComplete
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.dll
 E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.pdb
-E:\ShianGit\ASP.NET\Assignment\Assignment\Assignment\obj\Debug\Assignment.csproj.AssemblyReference.cache

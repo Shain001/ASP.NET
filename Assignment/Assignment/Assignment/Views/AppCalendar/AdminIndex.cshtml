@@ -259,6 +259,11 @@
                     return;
                 }
 
+                if ($('#userEmail').val() == null) {
+                    alert('user email type required')
+                    return;
+                }
+
                 else {
                     var startDate = moment($('#txtStart').val(), "YYYY/MM/DD HH:mm A").toDate();
                     //var endDate = moment($('#txtEnd').val(), "YYYY/MM/DD HH:mm A").toDate();

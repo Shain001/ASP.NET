@@ -56,5 +56,26 @@ namespace Assignment.Utils
 
             return Emails;
         }
+
+        public static IEnumerable<SelectListItem> GetUserEmailsWithoutAll()
+        {
+            var context = new IdentityDbContext();
+
+            Emails = new List<SelectListItem>();
+            
+
+            var users = context.Users.ToList();
+
+            foreach (var u in users)
+            {
+                Emails.Add(new SelectListItem() { Value = u.Email, Text = u.Email });
+            }
+
+
+
+
+
+            return Emails;
+        }
     }
 }

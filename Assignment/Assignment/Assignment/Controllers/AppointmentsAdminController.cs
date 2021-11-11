@@ -83,6 +83,17 @@ namespace Assignment.Controllers
                 //    ViewBag.TypeId = new SelectList(db.ServiceType, "TypeId", "TypeName", appointment.TypeId);
                 //    return View(appointment);
                 //}
+
+                var context = new IdentityDbContext();
+                
+                 var user = context.Users.Where(s => s.Email == appointment.UID).FirstOrDefault();
+                 var uid = user.Id;
+                 appointment.UID = uid;
+                
+                
+                
+                
+
                 db.Appointment.Add(appointment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
